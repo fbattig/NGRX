@@ -3,7 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from './app-state';
 import { Product } from './product';
+import { CreateProductAction } from './product.actions';
 
+
+const productSelector = (state) => state.products;
+const createProduct= (id: number, title: string) => ({type: 'ADD', payload: { id, title }});
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,14 +21,14 @@ export class AppComponent {
   productSelected: Product;
 
   constructor(private store: Store<AppState>) {
-    this.products$ = this.store.select('products');
+    this.products$ = this.store.select(productSelector);
   }
 
+
+
+
   add() {
-    this.store.dispatch({
-      type: 'ADD',
-      payload: { id: this.id++, title: this.newProduct },
-    });
+    this.store.dispatch(new CreateProductAction(this.id++, this.newProduct));
     this.newProduct = null;
   }
 
