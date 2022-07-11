@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="formcontrol mt-4">
+        <label>Product </label>
+        <input style="margin-left:20px;" type="text" 
+        [(ngModel)]="newProduct">
+        <button (click)="add()">Save</button>
+    </div>
+    <div *ngFor="let product of products$ | async">
+        {{product.id}} -- {{product.title}}
+        <button (click)="selected(product)">Select</button>
+        <button (click)="delete(product)">Delete</button>
+    </div>
+<div *ngIf="productSelected">
+    <input type="text" [(ngModel)]="productSelected.title">
+    <button (click)="update()">Update</button>
+</div>
+
+</div>
